@@ -53,7 +53,7 @@ CREATE TABLE dbo.Mina (
 );
 GO
 
-CREATE TABLE dbo.Mineral (
+CREATE TABLE dbo.Mineral 
     id_mineral INT IDENTITY(1,1) NOT NULL,
     nome       VARCHAR(100) NOT NULL,
     descricao  VARCHAR(MAX) NULL,
