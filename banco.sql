@@ -80,9 +80,10 @@ CREATE TABLE dbo.Lote (
     CONSTRAINT FK_Lote_Funcionario FOREIGN KEY (id_funcionario) REFERENCES dbo.Funcionario (id_funcionario),
     CONSTRAINT CK_Lote_quantidade  CHECK (quantidade > 0),
     CONSTRAINT CK_Lote_unidade     CHECK (unidade_medida IN ('kg', 'g', 't', 'un')),
-    CONSTRAINT CK_Lote_status      CHECK (status IN ('Extraido', 'Em processamento', 'Armazenado', 'Transportado', 'Entregue'))
+    CONSTRAINT CK_Lote_status      CHECK (status IN ('Extraido', 'Em processamento', 'Armazenado', 'Transportado', 'Entregue')
 );
 GO
 
+SELECT name FROM sys.tables ORDER BY name;
 
-
+SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Lote');
