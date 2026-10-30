@@ -1,2 +1,2 @@
-# pim-sql
+# Projeto Integrado Multidisciplinar
 
