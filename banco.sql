@@ -62,7 +62,7 @@ CREATE TABLE dbo.Mineral (
 );
 GO
 
-CREATE TABLE dbo.Lote (
+CREATE TABLE dbo.Lote 
     id_lote        INT IDENTITY(1,1) NOT NULL,
     id_mina        INT NOT NULL,
     id_mineral     INT NOT NULL,
