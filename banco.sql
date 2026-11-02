@@ -4,7 +4,7 @@ GO
 CREATE TABLE dbo.Perfil (
     id_perfil  INT IDENTITY(1,1) NOT NULL,
     nome       VARCHAR(50)  NOT NULL,
-    descricao  VARCHAR(150) NULL,
+    descricao  VARCHAR(MAX) NULL,
     CONSTRAINT PK_Perfil      PRIMARY KEY (id_perfil),
     CONSTRAINT UQ_Perfil_nome UNIQUE (nome)
 );
@@ -13,7 +13,7 @@ GO
 CREATE TABLE dbo.Permissao (
     id_permissao INT IDENTITY(1,1) NOT NULL,
     nome         VARCHAR(50)  NOT NULL,
-    descricao    VARCHAR(150) NULL,
+    descricao    VARCHAR(MAX) NULL,
     CONSTRAINT PK_Permissao      PRIMARY KEY (id_permissao),
     CONSTRAINT UQ_Permissao_nome UNIQUE (nome)
 );
@@ -84,6 +84,35 @@ CREATE TABLE dbo.Lote (
 );
 GO
 
+CREATE TABLE dbo.Historico_lote (
+	id_historico_lote		INT IDENTITY (1,1)	NOT NULL,
+	id_lote					INT					NOT NULL,
+	id_funcionario			INT					NOT NULL,
+	status					VARCHAR(30)			NOT NULL,
+	data_hora_registro		DATETIME			NOT NULL CONSTRAINT DF_Historico_lote_data DEFAULT GETDATE(),
+    observacao              VARCHAR(MAX)        NULL,
+	CONSTRAINT PK_Historico_lote				PRIMARY KEY (id_historico_lote),
+	CONSTRAINT FK_Historico_lote_Lote			FOREIGN KEY (id_lote)			REFERENCES dbo.Lote (id_lote),
+	CONSTRAINT FK_Historico_lote_funcionario	FOREIGN KEY (id_funcionario)	REFERENCES dbo.Funcionario (id_funcionario),
+	CONSTRAINT CK_Historico_lote_status			CHECK (status IN ('Extraido', 'Em processamento', 'Armazenado', 'Transportado', 'Entregue'))	
+
+);
+GO
+
+CREATE TABLE dbo.Produto(
+	id_produto		INT IDENTITY(1,1)   NOT NULL,
+	id_lote			INT					NOT NULL,
+	nome			VARCHAR(100)		NOT NULL,
+	descricao		VARCHAR(MAX)		NULL,
+	CONSTRAINT PK_Produto				PRIMARY KEY (id_produto),
+	CONSTRAINT FK_Produto_Lote			FOREIGN KEY (id_lote) REFERENCES dbo.Lote (id_lote)
+);
+GO
+
+
+
+
+SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Produto');
+
 SELECT name FROM sys.tables ORDER BY name;
 
-SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Lote');
