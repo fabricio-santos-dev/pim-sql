@@ -109,10 +109,59 @@ CREATE TABLE dbo.Produto(
 );
 GO
 
+CREATE TABLE dbo.Cliente(
+	id_cliente		INT IDENTITY(1,1)	NOT NULL,
+	razao_social    VARCHAR(150)		NOT NULL,
+	cnpj			CHAR(14)			NOT NULL,
+	contato			VARCHAR(100)		NOT NULL,
+	email			VARCHAR(120)		NOT NULL,
+	senha_hash		VARCHAR(255)		NOT NULL,
+	status			VARCHAR(20)			NOT NULL CONSTRAINT DF_Cliente_status DEFAULT 'Ativo',
+	CONSTRAINT PK_Cliente				PRIMARY KEY (id_cliente),
+	CONSTRAINT UQ_Cliente_cnpj			UNIQUE (cnpj),
+	CONSTRAINT UQ_Cliente_email			UNIQUE (email),
+	CONSTRAINT CK_Cliente_status		CHECK (status IN ('Ativo', 'Inativo'))
+
+);
+GO
+
+CREATE TABLE dbo.Pedido_cliente(
+	id_pedido_cliente	INT IDENTITY(1,1)	NOT NULL,
+	id_cliente			INT					NOT NULL,
+	data_pedido			DATE				NOT NULL CONSTRAINT DF_Pedido_cliente_data DEFAULT CAST(GETDATE() AS DATE),
+	status_pedido		VARCHAR(30)			NOT NULL,
+	valor_total			DECIMAL(12,2)		NOT NULL,
+	numero_nota_fiscal	VARCHAR(20)				NULL,
+	observacao			VARCHAR(MAX)			NULL,
+	CONSTRAINT PK_Pedido_cliente			PRIMARY KEY (id_pedido_cliente),
+	CONSTRAINT FK_Pedido_cliente_Cliente	FOREIGN KEY (id_cliente) REFERENCES dbo.Cliente (id_cliente),
+	CONSTRAINT CK_Pedido_valor				CHECK (valor_total > 0),
+	CONSTRAINT CK_Pedido_status      CHECK (status_pedido IN ('A Pagar', 'Preparando', 'A Caminho', 'Entregue'))
+
+);
+GO
+
+CREATE TABLE dbo.Entrega(
+	id_entrega			INT IDENTITY(1,1)	NOT NULL,
+	id_pedido_cliente   INT					NOT NULL,
+	id_produto			INT					NOT NULL,
+	id_funcionario		INT					NOT NULL,
+	data_entrega		DATE				    NULL,
+	status				VARCHAR(20)			NOT NULL  CONSTRAINT DF_Entrega_status DEFAULT 'Pendente',
+	CONSTRAINT PK_Entrega					PRIMARY KEY (id_entrega),
+	CONSTRAINT FK_Entrega_Pedido_cliente	FOREIGN KEY (id_pedido_cliente) REFERENCES dbo.Pedido_cliente (id_pedido_cliente),
+	CONSTRAINT FK_Entrega_Produto			FOREIGN KEY (id_produto) REFERENCES dbo.Produto (id_produto),
+	CONSTRAINT FK_Entrega_Funcionario		FOREIGN KEY (id_funcionario) REFERENCES dbo.Funcionario (id_funcionario),
+	CONSTRAINT CK_Entrega_status			CHECK (status IN ('Pendente', 'Em Transporte', 'Entregue', 'Cancelada'))
 
 
 
-SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Produto');
+
+
+);
+GO
+
+SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Entrega');
 
 SELECT name FROM sys.tables ORDER BY name;
 
