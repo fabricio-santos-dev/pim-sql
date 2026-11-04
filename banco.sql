@@ -154,14 +154,27 @@ CREATE TABLE dbo.Entrega(
 	CONSTRAINT FK_Entrega_Funcionario		FOREIGN KEY (id_funcionario) REFERENCES dbo.Funcionario (id_funcionario),
 	CONSTRAINT CK_Entrega_status			CHECK (status IN ('Pendente', 'Em Transporte', 'Entregue', 'Cancelada'))
 
+);
+GO
 
-
+CREATE TABLE dbo.Pagamento(
+	id_pagamento INT IDENTITY (1,1)			NOT NULL,
+	id_pedido_cliente	INT					NOT NULL,
+	valor_pago			DECIMAL(12,2)		NOT NULL,
+	data_pagamento		DATE				    NULL,
+	metodo_pagamento	VARCHAR(30)			NOT NULL,
+	status				VARCHAR(20)			NOT NULL    CONSTRAINT DF_Pagamento_status DEFAULT 'Pendente',
+	observacao			VARCHAR(MAX)			NULL,
+	CONSTRAINT PK_Pagamento						PRIMARY KEY (id_pagamento),
+	CONSTRAINT FK_Pagamento_Pedido_cliente		FOREIGN KEY (id_pedido_cliente) REFERENCES dbo.Pedido_cliente (id_pedido_cliente),
+	CONSTRAINT CK_Pagamento_valor_pago				CHECK (valor_pago > 0),
+	CONSTRAINT CK_Pagamento_status				CHECK (status IN ('Pendente', 'Pago', 'Cancelado', 'Estornado'))
 
 
 );
 GO
 
-SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Entrega');
+SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('dbo.Pagamento');
 
 SELECT name FROM sys.tables ORDER BY name;
 
