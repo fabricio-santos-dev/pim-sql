@@ -1,0 +1,1 @@
+SELECT codigo_lote, status, quantidade, unidade_medida, data_extracao FROM dbo.Lote;
