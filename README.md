@@ -22,31 +22,21 @@ O arquivo SQLQuery1.sql reúne, em ordem cronológica e comentados, todos os com
 
 ## Requisitos atendidos e onde está
 
-RF01 Cadastro de lotes: tabela Lote (mina de origem, mineral, responsável, quantidade, unidade e data)
-
-RF02 Identificação única: coluna calculada codigo_lote (LT-000001…) com UNIQUE
-
-RF03 Cadastro de funcionários: tabela Funcionario
-
-RF04 Controle de acesso:	Perfil, Permissao e Perfil_Permissao
-
-RF05 Registro de etapas:	Historico_Lote e procedure sp_registrar_etapa
-
-RF06 Atualização de status:	coluna Lote.status, atualizada pela procedure
-
-RF07 Consulta de rastreabilidade:	view vw_rastreabilidade_lote
-
-RF08 Cadastro de clientes:	Cliente, Pedido_cliente, Entrega e view vw_entregas_realizadas
-
-RF09 Registro de quantidade:	qtd_movimentada e qtd_perda no histórico; quantidade em Produto e Entrega
-
-RF10 Relatórios	views: vw_origem_materiais e vw_entregas_realizadas
-
-RNF01 Segurança:	senha_hash (nunca texto puro)
-
-RNF02 Integridade:	PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK (provados em testes.sql)
-
-RNF06 Backup:	backup.sql
+| Código | Requisito | Onde está implementado |
+|:---:|---|---|
+| **RF01** | Cadastro de lotes | Tabela `Lote` (mina de origem, mineral, responsável, quantidade, unidade e data) |
+| **RF02** | Identificação única | Coluna calculada `codigo_lote` (LT-000001...) com `UNIQUE` |
+| **RF03** | Cadastro de funcionários | Tabela `Funcionario` |
+| **RF04** | Controle de acesso | `Perfil`, `Permissao` e `Perfil_Permissao` |
+| **RF05** | Registro de etapas | `Historico_Lote` e procedure `sp_registrar_etapa` |
+| **RF06** | Atualização de status | Coluna `Lote.status`, atualizada pela procedure |
+| **RF07** | Consulta de rastreabilidade | View `vw_rastreabilidade_lote` |
+| **RF08** | Cadastro de clientes | `Cliente`, `Pedido_cliente`, `Entrega` e view `vw_entregas_realizadas` |
+| **RF09** | Registro de quantidades | `qtd_movimentada` e `qtd_perda` no histórico; quantidade em `Produto` e `Entrega` |
+| **RF10** | Relatórios | Views `vw_origem_materiais` e `vw_entregas_realizadas` |
+| **RNF01** | Segurança | `senha_hash` (nunca texto puro) |
+| **RNF02** | Integridade dos dados | `PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE` e `CHECK` (validados em `testes.sql`) |
+| **RNF06** | Backup | Arquivo `backup.sql` |
 
 ## DER:
 
