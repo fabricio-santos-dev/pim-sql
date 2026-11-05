@@ -20,9 +20,7 @@ Pré-requisitos: SQL Server (a edição Express serve) e SSMS. Execute nesta ord
 
 O arquivo SQLQuery1.sql reúne, em ordem cronológica e comentados, todos os comandos usados na construção do banco (tabelas, correções, índices, views, procedure, dados, testes e backup), para consulta.
 
-## Requisitos atendidos e onde está
-
-## REQUISITOS ATENDIDOS
+# Requisitos atendidos e onde está
 
 | REQUISITO | ONDE ESTÁ |
 |---|---|
