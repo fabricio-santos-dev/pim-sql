@@ -14,7 +14,7 @@ Modelo (DER lógico)
 
 Cadeia de rastreabilidade: Mina + Mineral → Lote → Historico_Lote → Produto → Entrega → Pedido_cliente → Cliente.
 
-**Como executar**
+### Como executar
 
 Pré-requisitos: SQL Server (a edição Express serve) e SSMS. Execute nesta ordem (SSMS: Arquivo > Abrir > Arquivo, depois F5).
 
